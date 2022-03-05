@@ -22,6 +22,9 @@ export const Header = styled.h1`
   margin-bottom: 32px;
   text-align: center;
 `;
+export const Bottom = styled.div`
+  text-align: center;
+`;
 export const BigTextarea = styled.textarea`
   width: 100%;
   min-height: 160px;
@@ -127,6 +130,55 @@ export const showUploadFailDialog = () => {
 };
 export const showUploadingDialog = () => {
   return createDialog(<Loading>上传中</Loading>);
+};
+export const ShowIndexQrcodeDialog = ({ content, onClose }) => {
+  const [address, setAddress] = useState(localStorage.getItem("address") || "");
+  const context = useContext(AppContext);
+  const addressesRef = context?.addressesRef ?? null
+  const onChange = (e) => {
+    setAddress(e.target.value);
+    localStorage.setItem("address", e.target.value);
+  };
+  content = typeof content === "string" ? content : content(address)
+  return (
+    <Pop>
+      <H2>使用手机上传</H2>
+      {addressesRef.current ?
+        <div>
+          <P>
+            请 Windows 用户在防火墙入站规则中开通 27149 端口（<a href="https://jingyan.baidu.com/article/09ea3ede7311dec0afde3977.html" target="_blank" rel="noreferrer">教程</a>）
+          </P>
+          <P>
+            <Label>
+              <Span>请选择手机可以访问的局域网IP</Span>
+              <select value={address} onChange={onChange}>
+                <option value="" disabled>
+                  - 请选择 -
+                </option>
+                {addressesRef.current?.map((string) => (
+                  <option key={string}>{string}</option>
+                ))}
+              </select>
+            </Label>
+          </P>
+        </div>
+        : null
+      }
+      <Center>
+        {content ? <Qrcode content={content} /> : null}
+      </Center>
+      <Space />
+      <Center>
+        <Button onClick={onClose}>关闭</Button>
+      </Center>
+    </Pop>
+  );
+};
+export const showPhoneQrcodeDialog = ({ context, content }) => {
+  const close = createDialog(
+    <ShowIndexQrcodeDialog content={content} onClose={() => close()} />,
+    { context }
+  );
 };
 const Pop = styled.div`
   padding: 16px;
