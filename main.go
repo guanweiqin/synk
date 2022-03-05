@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"os/signal"
@@ -13,7 +14,11 @@ func startBrower(chChromeDie chan struct{}, chBackendDie chan struct{}) {
 	chromePath := "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 	cmd := exec.Command(chromePath, "--app=http://127.0.0.1:"+config.GetPort()+"/static/index.html")
 	// cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true} // 隐藏调用的外部程序的cmd窗口
-	cmd.Start()
+	err := cmd.Start()
+	if err != nil {
+		fmt.Println(fmt.Sprint(err))
+		os.Exit(0)
+	}
 	go func() {
 		<-chBackendDie
 		cmd.Process.Kill()

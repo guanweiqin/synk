@@ -4,6 +4,10 @@
 
 **使用概览：**
 
+`文件运行前提路径下浏览器存在：`
+
+`C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe`
+
 1. 拉取项目
 ```bash
 git clone https://github.com/guanweiqin/synk.git
