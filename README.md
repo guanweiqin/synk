@@ -4,13 +4,18 @@
 
 **使用概览：**
 
-1. 拉取项目：
+1. 拉取项目
 ```bash
 git clone https://github.com/guanweiqin/synk.git
 ```
 
-2. 进入 synk 目录
- ```bash
+2. 进入 server/frontend 目录
+```bash
+npm run build
+```
+
+3. 进入 synk 根目录
+```bash
 go build -ldflags "-H windowsgui"
 ```
 
