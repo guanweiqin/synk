@@ -1,13 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"os/signal"
 
 	"github.com/guanweiqin/synk/server"
 	"github.com/guanweiqin/synk/server/config"
+	"github.com/lxn/walk"
 )
 
 func startBrower(chChromeDie chan struct{}, chBackendDie chan struct{}) {
@@ -16,8 +16,7 @@ func startBrower(chChromeDie chan struct{}, chBackendDie chan struct{}) {
 	// cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true} // 隐藏调用的外部程序的cmd窗口
 	err := cmd.Start()
 	if err != nil {
-		fmt.Println(fmt.Sprint(err))
-		os.Exit(0)
+		walk.MsgBox(nil, "提示", err.Error(), walk.MsgBoxOK|walk.MsgBoxIconError)
 	}
 	go func() {
 		<-chBackendDie
@@ -47,5 +46,4 @@ func main() {
 	case <-chChromeDie:
 		os.Exit(0)
 	}
-
 }
