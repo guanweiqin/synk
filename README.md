@@ -10,17 +10,19 @@
 
 1. 拉取项目
 ```bash
-git clone https://github.com/guanweiqin/synk.git
+> git clone https://github.com/guanweiqin/synk.git
 ```
 
 2. 进入 server/frontend 目录
 ```bash
-npm run build
+> yarn
+
+> yarn build
 ```
 
 3. 进入 synk 根目录
 ```bash
-go build -ldflags "-H windowsgui"
+> go build -ldflags "-H windowsgui"
 ```
 
 ## 关于 Synk 说明
