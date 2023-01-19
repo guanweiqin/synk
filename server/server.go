@@ -4,6 +4,7 @@ import (
 	"embed"
 	"io/fs"
 	"log"
+	"mime"
 	"net/http"
 	"strings"
 
@@ -32,6 +33,8 @@ func Run() {
 	router.GET("/api/v1/qrcodes", controllers.QrcodesController)
 	router.POST("/api/v1/files", controllers.FilesController)
 	router.POST("/api/v1/texts", controllers.TextsController)
+	// 配置MIME类型
+	_ = mime.AddExtensionType(".js", "application/javascript")
 	staticFiles, _ := fs.Sub(FS, "frontend/dist")
 	router.StaticFS("/static", http.FS(staticFiles))
 	router.NoRoute(func(c *gin.Context) {
