@@ -25,6 +25,11 @@
 > go build -ldflags "-H windowsgui"
 ```
 
+编译后文件体积过大解决方案
+- 安装 UPX，并使用 最高级别的压缩
+- 下载地址：[UPX](https://github.com/upx/upx/releases)
+- 执行命令：upx.exe -9 *.exe
+
 ## 关于 Synk 说明
 
 此项目根据 [FrankFang/synk](https://github.com/FrankFang/synk) 项目进行学习搭建并做了一些改动。
